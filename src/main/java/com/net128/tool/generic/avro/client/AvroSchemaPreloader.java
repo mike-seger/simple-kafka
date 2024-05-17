@@ -2,21 +2,19 @@ package com.net128.tool.generic.avro.client;
 
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.avro.Schema;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
 
 @Component
 @Slf4j
 public class AvroSchemaPreloader {
 
     @Autowired
-    private SchemaRegistryService schemaRegistryService; // Assume this service handles schema registration
+    private SchemaRegistryService schemaRegistryService;
 
     @PostConstruct
     public void loadAvroSchemas() {
