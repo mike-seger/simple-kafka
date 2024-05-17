@@ -1,9 +1,13 @@
 package com.net128.tool.generic.avro.client;
 
+import org.springframework.core.io.Resource;
+import org.springframework.util.StreamUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -22,7 +26,13 @@ public class ResourceUtil {
         return tempFile;
     }
 
-    public static String loadResource(String location) throws URISyntaxException, IOException {
+    public static String loadResourceFromLocation(String location) throws URISyntaxException, IOException {
         return Files.readString(Paths.get(Objects.requireNonNull(ResourceUtil.class.getClassLoader().getResource(location)).toURI()));
+    }
+
+    public static String loadResourceContent(Resource resource) throws IOException {
+        try (InputStream inputStream = resource.getInputStream()) {
+            return StreamUtils.copyToString(inputStream, StandardCharsets.UTF_8);
+        }
     }
 }
