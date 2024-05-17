@@ -4,6 +4,10 @@ spring:
     bootstrap-servers: localhost:9092
     consumer:
       group-id: group_id
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
   profiles.default: dev
 
 management.endpoints.web.exposure.include: '*'

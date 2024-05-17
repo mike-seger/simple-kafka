@@ -4,8 +4,6 @@ spring:
       auto-offset-reset: earliest
       group-id: test
 test:
-  topic1: embedded-test-topic1
-  topic2: embedded-test-topic2
   listeners: PLAINTEXT://localhost:9092,REMOTE://127.0.0.1:9093
   advertised-listeners: ${test.listeners}
   listener-security-protocol-map: PLAINTEXT:PLAINTEXT,REMOTE:PLAINTEXT

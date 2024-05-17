@@ -25,6 +25,7 @@ dependencies {
 	implementation 'org.springframework.kafka:spring-kafka'
 	implementation 'org.springframework.kafka:spring-kafka:3.1.4'
 	implementation 'org.apache.kafka:kafka-clients'
+	implementation 'org.apache.avro:avro:1.11.3'
 
 	implementation 'org.springframework.kafka:spring-kafka-test'
 
@@ -41,3 +42,4 @@ dependencies {
 tasks.named('test') {
 	useJUnitPlatform()
 }
+

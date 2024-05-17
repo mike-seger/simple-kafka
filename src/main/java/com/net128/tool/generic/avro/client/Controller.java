@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.net128.tool.generic.avro.client;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +18,7 @@ public class Controller {
     @GetMapping("/send/{topic}/{message}")
     public String sendMessage(@PathVariable String topic, @PathVariable String message) {
         producerService.sendMessage(topic, message);
-        return "Message sent";
+        return "Message sent\n";
     }
 
     @GetMapping("/seek-time/{time}")

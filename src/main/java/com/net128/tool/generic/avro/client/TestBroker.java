@@ -1,4 +1,4 @@
-package com.example.demo;
+package com.net128.tool.generic.avro.client;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,11 +9,12 @@ import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.EmbeddedKafkaZKBroker;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
 @Profile("dev")
-public class KafkaTestConfig {
+public class TestBroker {
     @Bean
     @Profile("dev")
     EmbeddedKafkaBroker broker(TestConfiguration tc) {
@@ -32,8 +33,7 @@ public class KafkaTestConfig {
 @ConfigurationProperties("test")
 @Data
 class TestConfiguration {
-    String topic1;
-    String topic2;
+    List<String> topics;
     String listeners;
     String advertisedListeners;
     String listenerSecurityProtocolMap;
