@@ -1,15 +1,9 @@
-spring.kafka:
+
+spring:
+  kafka:
     bootstrap-servers: localhost:9092
     consumer:
-        group-id: my-group
-        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: group_id
+  profiles.default: dev
 
-    properties:
-        security.protocol=SSL
-        truststore.location=/path/to/truststore.jks
-        truststore.password=truststore-password
-        keystore.location=/path/to/keystore.jks
-        keystore.password=keystore-password
-        key.password=key-password
-    
+management.endpoints.web.exposure.include: '*'

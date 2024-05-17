@@ -1,0 +1,22 @@
+spring:
+  kafka:
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        security.protocol: SSL
+        ssl.truststore.location: classpath:truststore.jks
+        ssl.truststore.password: your-truststore-password
+        ssl.keystore.location: classpath:keystore.jks
+        ssl.keystore.password: your-keystore-password
+        ssl.key.password: your-key-password
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        security.protocol: SSL
+        ssl.truststore.location: classpath:truststore.jks
+        ssl.truststore.password: your-truststore-password
+        ssl.keystore.location: classpath:keystore.jks
+        ssl.keystore.password: your-keystore-password
+        ssl.key.password: your-key-password
