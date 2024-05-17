@@ -1,14 +1,15 @@
 package com.net128.tool.generic.avro.client;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Service;
-
-import java.io.IOException;
+import org.springframework.util.concurrent.ListenableFuture;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class ProducerService {
 
     private final KafkaTemplate<String, byte[]> kafkaTemplate;
@@ -16,12 +17,21 @@ public class ProducerService {
 
     public void sendMessage(String topic, String jsonData) {
         try {
-            // Assume schemaName is either derived from the topic or another source
-            String schemaName = "yourSchemaName"; // This should be dynamic based on context
-            byte[] avroData = avroUtils.serializeAvroRecordGeneric(schemaName, jsonData);
+            var avroData = avroUtils.serializeToAvro(topic, jsonData);
+            log.info("\n"+new String(avroData));
             kafkaTemplate.send(topic, avroData);
+            var future = kafkaTemplate.send(topic, avroData);
+            try {
+                var result = future.get();
+                log.info("Message sent successfully with offset: {} to topic: {}",
+                    result.getRecordMetadata().offset(), topic);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                log.error("Thread was interrupted while waiting for the send to complete.");
+            } catch (Exception e) {
+                log.error("Failed to send message due to: " + e.getCause());
+            }
         } catch (Exception e) {
-            // Handle serialization errors (log, throw, etc.)
             e.printStackTrace();
         }
     }

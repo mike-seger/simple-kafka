@@ -9,7 +9,6 @@ import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.EmbeddedKafkaZKBroker;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -17,7 +16,7 @@ import java.util.Map;
 public class TestBroker {
     @Bean
     @Profile("dev")
-    EmbeddedKafkaBroker broker(TestConfiguration tc) {
+    EmbeddedKafkaBroker broker(TestBrokerConfiguration tc) {
         Map<String, String> properties = new HashMap<>();
         properties.put("listeners", tc.listeners);
         properties.put("advertised.listeners", tc.advertisedListeners);
@@ -32,8 +31,7 @@ public class TestBroker {
 @Configuration
 @ConfigurationProperties("test")
 @Data
-class TestConfiguration {
-    List<String> topics;
+class TestBrokerConfiguration {
     String listeners;
     String advertisedListeners;
     String listenerSecurityProtocolMap;

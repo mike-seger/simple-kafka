@@ -1,12 +1,11 @@
 package com.net128.tool.generic.avro.client;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
 import java.time.OffsetDateTime;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -14,9 +13,15 @@ public class Controller {
 
     private final ProducerService producerService;
     private final Listener listener;
+    private final SchemaRegistryService schemaRegistryService;
 
     @GetMapping("/send/{topic}/{message}")
-    public String sendMessage(@PathVariable String topic, @PathVariable String message) {
+    public String sendSimpleMessage(@PathVariable String topic, @PathVariable String message) {
+        return sendMessage(topic, message);
+    }
+
+    @PostMapping("/send/{topic}")
+    public String sendMessage(@PathVariable String topic, @RequestBody String message) {
         producerService.sendMessage(topic, message);
         return "Message sent\n";
     }
@@ -39,5 +44,15 @@ public class Controller {
     @GetMapping("/seek-to-end")
     public void seekToEnd() {
         listener.seekToEnd();
+    }
+
+    @GetMapping("/schemas")
+    public List<String> getSchemaNames() {
+        return schemaRegistryService.getSchemaNames();
+    }
+
+    @PostMapping("/schema/{name}")
+    public void setSchema(@RequestBody String schema, @PathVariable String name) {
+        schemaRegistryService.addSchema(name, schema);
     }
 }
