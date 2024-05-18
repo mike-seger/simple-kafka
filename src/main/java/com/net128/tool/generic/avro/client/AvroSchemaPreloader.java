@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 @Component
 @Slf4j
 public class AvroSchemaPreloader {
@@ -23,6 +24,7 @@ public class AvroSchemaPreloader {
             Resource[] resources = resolver.getResources("classpath:avro/*.avsc");
             for (Resource resource : resources) {
                 String filename = resource.getFilename();
+                assert filename != null;
                 String schemaName = filename.substring(0, filename.length() - 5);
                 schemaRegistryService.addSchema(schemaName, ResourceUtil.loadResourceContent(resource));
             }

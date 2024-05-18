@@ -7,6 +7,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
+@SuppressWarnings("unused")
 class AvroUtilsTests {
 	@Autowired
 	private AvroUtils avroUtils;
@@ -16,10 +17,10 @@ class AvroUtilsTests {
 
 	@Test
 	void testSerializeDeserialize1() throws Exception {
-		schemaRegistryService.addSchema("user", "classpath:avro/user1.avsc");
+		schemaRegistryService.addSchema("user1", "classpath:avro/user1.avsc");
 		var json = ResourceUtil.loadResourceFromLocation("User.json");
-		byte [] avro = avroUtils.serializeToAvro("user", json);
-		var resultJson = avroUtils.deserializeAvro("user", avro);
+		byte [] avro = avroUtils.serializeToAvro("user1", json);
+		var resultJson = avroUtils.deserializeAvro("user1", avro);
 		assertEquals(json, resultJson);
 	}
 }

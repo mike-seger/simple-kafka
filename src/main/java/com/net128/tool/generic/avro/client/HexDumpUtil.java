@@ -13,6 +13,7 @@ public class HexDumpUtil {
             .collect(Collectors.joining());
     }
 
+    @SuppressWarnings("SameParameterValue")
     private static String formatLine(byte[] data, int start, int lineLength) {
         var end = Math.min(start + lineLength, data.length);
         var hexString = IntStream.range(start, end)

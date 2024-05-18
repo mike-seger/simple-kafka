@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@SuppressWarnings("unused")
 public class Controller {
 
     private final ProducerService producerService;

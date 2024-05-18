@@ -9,32 +9,18 @@ import org.springframework.core.env.Environment;
 import org.springframework.kafka.test.EmbeddedKafkaBroker;
 import org.springframework.kafka.test.EmbeddedKafkaZKBroker;
 
-import java.net.ServerSocket;
 import java.util.HashMap;
-import java.util.Map;
 
 @Configuration
 @Profile("dev")
+@SuppressWarnings({"unused", "ClassEscapesDefinedScope"})
 public class TestBroker {
-//    @Bean
-//    @Profile("dev")
-//    EmbeddedKafkaBroker broker(TestBrokerConfiguration tc) {
-//        Map<String, String> properties = new HashMap<>();
-//        properties.put("listeners", tc.listeners);
-//        properties.put("advertised.listeners", tc.advertisedListeners);
-//        properties.put("listener.security.protocol.map", tc.listenerSecurityProtocolMap);
-//        return new EmbeddedKafkaZKBroker(1)
-//            .kafkaPorts(9092)
-//            .brokerProperties(properties)
-//            .brokerListProperty("spring.kafka.bootstrap-servers");
-//    }
-
     @Bean
     @Profile("dev")
     public EmbeddedKafkaBroker broker(TestBrokerConfiguration tc, Environment env) {
-        int kafkaPort = 9092;
+        var kafkaPort = 9092;
         if (PortChecker.arePortsAvailable(tc.listeners)) {
-            Map<String, String> properties = new HashMap<>();
+            var properties = new HashMap<String, String>();
             properties.put("listeners", tc.listeners);
             properties.put("advertised.listeners", tc.advertisedListeners);
             properties.put("listener.security.protocol.map", tc.listenerSecurityProtocolMap);

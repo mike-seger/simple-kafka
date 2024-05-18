@@ -23,7 +23,7 @@ public class PortChecker {
         String host = parts[0];
         int port = Integer.parseInt(parts[1]);
         
-        try (Socket socket = new Socket(host, port)) {
+        try (Socket ignored = new Socket(host, port)) {
             return false; // If the connection is successful, the port is in use
         } catch (Exception e) {
             return true; // If the connection fails, the port is available
