@@ -8,6 +8,7 @@ import org.springframework.kafka.support.KafkaHeaders;
 import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.List;
 
 @Component
@@ -15,16 +16,15 @@ import java.util.List;
 @Slf4j
 public class Listener extends AbstractConsumerSeekAware {
     private final AvroUtils avroUtils;
-    @KafkaListener(topicPattern = ".*", groupId = "G1")
-    public void listen(byte [] messageData, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws Exception {
+    @KafkaListener(topicPattern = ".*")
+    public void listen(
+            byte [] messageData,
+            @Header(KafkaHeaders.RECEIVED_TOPIC) String topic,
+            @Header(KafkaHeaders.OFFSET) Long offset,
+            @Header(KafkaHeaders.RECEIVED_TIMESTAMP) Long timestamp
+    ) throws Exception {
         var message = avroUtils.deserializeAvro(topic, messageData);
-        log.info("Received G1 Message in {}:\n{}", topic, message);
-    }
-
-    @KafkaListener(topics = "user", groupId = "G2", autoStartup = "false")
-    public void listen2(byte [] messageData, @Header(KafkaHeaders.RECEIVED_TOPIC) String topic) throws Exception {
-//        var message = avroUtils.deserializeAvro(topic, messageData);
-//        log.info("Received G2 Message in {}:\n{}", topic, message);
+        log.info("Received message from topic {}, at offset {}, on {}:\n{}",
+            topic, offset, Instant.ofEpochMilli(timestamp), message);
     }
 }
-

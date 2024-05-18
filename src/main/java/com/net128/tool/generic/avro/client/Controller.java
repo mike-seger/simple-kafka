@@ -1,14 +1,18 @@
 package com.net128.tool.generic.avro.client;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Duration;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.time.OffsetDateTime;
 import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class Controller {
 
     private final ProducerService producerService;
@@ -28,21 +32,26 @@ public class Controller {
 
     @GetMapping("/seek-time/{time}")
     public void seekToTime(@PathVariable OffsetDateTime time) {
+        log.info("seekToTime: {}", time);
         listener.seekToTimestamp(time.toInstant().toEpochMilli());
     }
 
     @GetMapping("/seek-back/{duration}")
     public void seekBack(@PathVariable String duration) {
-        listener.seekToTimestamp(System.currentTimeMillis() - Duration.parse(duration).toMillis());
+        var timeStamp = System.currentTimeMillis() - Duration.parse(duration).toMillis();
+        log.info("seekBack: {} ({})", timeStamp, Instant.ofEpochMilli(timeStamp));
+        listener.seekToTimestamp(timeStamp);
     }
 
     @GetMapping("/seek-to-beginning")
     public void seekToBeginning() {
+        log.info("seekToBeginning");
         listener.seekToBeginning();
     }
 
     @GetMapping("/seek-to-end")
     public void seekToEnd() {
+        log.info("seekToEnd");
         listener.seekToEnd();
     }
 
