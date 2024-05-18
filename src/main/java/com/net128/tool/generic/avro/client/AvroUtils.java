@@ -34,7 +34,7 @@ public class AvroUtils {
         }
     }
 
-    public byte[] serializeToAvro(String schemaName, String jsonData ) throws Exception {
+    public byte[] serializeToAvro(String schemaName, String jsonData) throws Exception {
         var schema = schemaRegistryService.getSchema(schemaName);
         var record = jsonToGenericRecord(schema, jsonData);
         var outputStream = new ByteArrayOutputStream();
@@ -51,5 +51,10 @@ public class AvroUtils {
         var decoder = DecoderFactory.get().binaryDecoder(data, null);
         var resultRecord = datumReader.read(null, decoder);
         return genericRecordToJson(resultRecord);
+    }
+
+    public String jsonToAvroHexDump(String schemaName, String jsonData) throws Exception {
+        var avro = serializeToAvro(schemaName, jsonData);
+        return HexDumpUtil.toHexDump(avro);
     }
 }

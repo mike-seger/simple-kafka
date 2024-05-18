@@ -16,7 +16,7 @@ class AvroUtilsTests {
 
 	@Test
 	void testSerializeDeserialize1() throws Exception {
-		schemaRegistryService.addSchema("user", "classpath:avro/user.avsc");
+		schemaRegistryService.addSchema("user", "classpath:avro/user1.avsc");
 		var json = ResourceUtil.loadResourceFromLocation("User.json");
 		byte [] avro = avroUtils.serializeToAvro("user", json);
 		var resultJson = avroUtils.deserializeAvro("user", avro);

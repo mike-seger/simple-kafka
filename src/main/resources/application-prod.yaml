@@ -3,16 +3,16 @@ spring:
     consumer:
       properties:
         security.protocol: SSL
-        ssl.truststore.location: classpath:truststore.jks
+        ssl.truststore.location: classpath:truststore.p12
         ssl.truststore.password: your-truststore-password
-        ssl.keystore.location: classpath:keystore.jks
+        ssl.keystore.location: classpath:keystore.p12
         ssl.keystore.password: your-keystore-password
         ssl.key.password: your-key-password
     producer:
       properties:
         security.protocol: SSL
-        ssl.truststore.location: classpath:truststore.jks
+        ssl.truststore.location: classpath:truststore.p12
         ssl.truststore.password: your-truststore-password
-        ssl.keystore.location: classpath:keystore.jks
+        ssl.keystore.location: classpath:keystore.p12
         ssl.keystore.password: your-keystore-password
         ssl.key.password: your-key-password
