@@ -25,7 +25,6 @@ public class AvroSchemaPreloader {
                 String filename = resource.getFilename();
                 String schemaName = filename.substring(0, filename.length() - 5);
                 schemaRegistryService.addSchema(schemaName, ResourceUtil.loadResourceContent(resource));
-                System.out.println("Loaded and registered schema: " + schemaName);
             }
         } catch (IOException e) {
             log.error("Failed to load AVSC files: {}", e.getMessage());

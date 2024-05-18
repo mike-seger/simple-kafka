@@ -16,8 +16,6 @@ public class ProducerService {
     public void sendMessage(String topic, String jsonData) {
         try {
             var avroData = avroUtils.serializeToAvro(topic, jsonData);
-            log.info("\n"+new String(avroData));
-            kafkaTemplate.send(topic, avroData);
             var future = kafkaTemplate.send(topic, avroData);
             try {
                 var result = future.get();

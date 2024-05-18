@@ -13,3 +13,18 @@ spring:
   profiles.default: dev
 
 management.endpoints.web.exposure.include: '*'
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    org.apache.kafka.clients.consumer.internals: warn
+    kafka.coordinator.group: warn
+    org.apache.kafka: warn
+    org.apache.kafka.common.utils: warn
+    org.apache.kafka.clients.consumer: warn
+    org.apache.kafka.common.metrics: warn
+    org.springframework.kafka.listener: warn
+    org.springframework.kafka.core: warn
+    kafka.controller: warn
