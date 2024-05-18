@@ -1,15 +1,30 @@
-spring.kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-        group-id: my-group
-        key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-        value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
 
-    properties:
-        security.protocol=SSL
-        truststore.location=/path/to/truststore.jks
-        truststore.password=truststore-password
-        keystore.location=/path/to/keystore.jks
-        keystore.password=keystore-password
-        key.password=key-password
-    
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    group-id: group1
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.ByteArraySerializer
+  profiles.default: dev
+
+management.endpoints.web.exposure.include: '*'
+
+logging:
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  level:
+    org.apache.kafka.clients.consumer.internals: warn
+    kafka.coordinator.group: warn
+    org.apache.kafka: warn
+    org.apache.kafka.common.utils: warn
+    org.apache.kafka.clients.consumer: warn
+    org.apache.kafka.common.metrics: warn
+    org.springframework.kafka.listener: warn
+    org.springframework.kafka.core: warn
+    kafka.controller: warn

@@ -1,28 +1,45 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.7'
-    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
-    id 'java'
+	id 'java'
+	id 'org.springframework.boot' version '3.2.5'
+	id 'io.spring.dependency-management' version '1.1.4'
 }
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+
+java {
+	sourceCompatibility = '17'
+}
 
 repositories {
-    mavenCentral()
+	mavenCentral()
 }
 
 dependencies {
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.kafka:spring-kafka'
-    implementation 'io.confluent:kafka-avro-serializer:7.6.0'
-    implementation 'io.confluent:kafka-avro-serializer:6.2.1' // Adjust the version as necessary
-    implementation 'org.apache.avro:avro:1.11.3'
+	// Spring Boot dependencies
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation 'org.springframework.kafka:spring-kafka-test'
+	// Kafka dependencies
+	implementation 'org.springframework.kafka:spring-kafka'
+	implementation 'org.springframework.kafka:spring-kafka:3.1.4'
+	implementation 'org.apache.kafka:kafka-clients'
+	implementation 'org.apache.avro:avro:1.11.3'
+
+	implementation 'org.springframework.kafka:spring-kafka-test'
+
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
+
+	// For unit testing
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.springframework.kafka:spring-kafka-test'
 }
 
-test {
-    useJUnitPlatform()
+tasks.named('test') {
+	useJUnitPlatform()
 }
+

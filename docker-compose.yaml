@@ -1,0 +1,55 @@
+version: '3'
+services:
+  zookeeper:
+    image: confluentinc/cp-zookeeper:latest
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:latest
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"  # External access port
+      - "9093:9093"  # Internal access port
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT_INTERNAL:PLAINTEXT,PLAINTEXT_EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT_INTERNAL://0.0.0.0:9093,PLAINTEXT_EXTERNAL://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT_INTERNAL://kafka:9093,PLAINTEXT_EXTERNAL://localhost:9092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL  # Specify inter-broker communication interface
+
+  cmak:
+    image: hlebalbau/kafka-manager:latest
+    container_name: cmak
+    depends_on:
+      - zookeeper
+      - kafka
+    ports:
+      - "9000:9000"
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+      APPLICATION_SECRET: "random-secret"
+    command: -Dpidfile.path=/dev/null
+
+  kafdrop:
+    image: obsidiandynamics/kafdrop
+    container_name: kafdrop
+    ports:
+      - "9006:9000"
+    environment:
+      KAFKA_BROKERCONNECT: "kafka:9093"
+      JVM_OPTS: "-Xms32M -Xmx64M"
+      SERVER_SERVLET_CONTEXTPATH: "/"
+    depends_on:
+      - zookeeper
+      - kafka
