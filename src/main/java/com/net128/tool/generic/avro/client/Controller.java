@@ -92,6 +92,10 @@ public class Controller {
         parameters = {@Parameter(name = "name", description = "Name of the schema / topic",
             required = true, example = "user1",
             schema = @Schema(type = "string"))})
+    @ApiResponse(responseCode = "200",
+            content = @Content(examples = { @ExampleObject(
+                value = "0000  08 4A 6F 65 32 80 7D                             |.Joe2.}|")}))
+
     public String toAvroHexDump(@RequestBody String json, @PathVariable String name) throws Exception {
         return avroUtils.jsonToAvroHexDump(name, json);
     }
