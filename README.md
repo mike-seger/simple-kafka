@@ -24,7 +24,6 @@ http://localhost:8080/swagger-ui/index.html#/
 ### Controlling the listener
 | Action                     | URL                                           |
 |----------------------------|-----------------------------------------------|
-| Send hello message         | GET: http://localhost:8080/send/topic1/hello  |
 | Seek back 10 minutes       | GET: http://localhost:8080/seek-back/PT10M    |
 | Seek back to the beginning | GET: http://localhost:8080/seek-to-beginning  |
 | Seek back to the end       | GET: http://localhost:8080/seek-to-end        |
