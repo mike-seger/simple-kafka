@@ -1,5 +1,7 @@
 package com.net128.tool.generic.avro.client;
 
+import com.net128.tool.generic.avro.client.util.AvroUtils;
+import com.net128.tool.generic.avro.client.util.ResourceUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

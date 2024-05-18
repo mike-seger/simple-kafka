@@ -1,5 +1,6 @@
 package com.net128.tool.generic.avro.client;
 
+import com.net128.tool.generic.avro.client.util.AvroUtils;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

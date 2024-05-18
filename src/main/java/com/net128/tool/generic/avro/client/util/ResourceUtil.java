@@ -1,4 +1,4 @@
-package com.net128.tool.generic.avro.client;
+package com.net128.tool.generic.avro.client.util;
 
 import org.springframework.core.io.Resource;
 import org.springframework.util.StreamUtils;

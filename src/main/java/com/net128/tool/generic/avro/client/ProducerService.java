@@ -1,5 +1,6 @@
 package com.net128.tool.generic.avro.client;
 
+import com.net128.tool.generic.avro.client.util.AvroUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;

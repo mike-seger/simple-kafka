@@ -1,5 +1,6 @@
 package com.net128.tool.generic.avro.client;
 
+import com.net128.tool.generic.avro.client.util.ResourceUtil;
 import lombok.RequiredArgsConstructor;
 import org.apache.avro.Schema;
 import org.springframework.stereotype.Service;

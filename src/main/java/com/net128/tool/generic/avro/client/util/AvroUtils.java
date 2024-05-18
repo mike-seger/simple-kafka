@@ -1,5 +1,6 @@
-package com.net128.tool.generic.avro.client;
+package com.net128.tool.generic.avro.client.util;
 
+import com.net128.tool.generic.avro.client.SchemaRegistryService;
 import lombok.RequiredArgsConstructor;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericDatumReader;

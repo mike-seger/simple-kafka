@@ -1,4 +1,4 @@
-package com.net128.tool.generic.avro.client;
+package com.net128.tool.generic.avro.client.util;
 
 import java.net.Socket;
 import java.util.ArrayList;
