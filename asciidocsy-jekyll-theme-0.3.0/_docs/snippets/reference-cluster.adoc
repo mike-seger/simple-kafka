@@ -1,1 +1,0 @@
-{% assign objs = page.cats-list | split: "," %}
