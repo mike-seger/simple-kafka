@@ -16,6 +16,7 @@ import java.time.Instant;
 @Slf4j
 public class Listener extends AbstractConsumerSeekAware {
     private final AvroUtils avroUtils;
+
     @KafkaListener(topicPattern = ".*")
     public void listen(
             byte [] messageData,

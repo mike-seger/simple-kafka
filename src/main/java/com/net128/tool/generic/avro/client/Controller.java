@@ -20,6 +20,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Slf4j
+@RequestMapping("api")
 @SuppressWarnings("unused")
 public class Controller {
 
@@ -34,13 +35,10 @@ public class Controller {
             content = @Content(
                 schema = @Schema(implementation = Object.class),
                 examples = { @ExampleObject(value = exampleObject) })),
-        parameters = {@Parameter(name = "topic",
-            required = true, example = "user1",
-            schema = @Schema(type = "string"))}
+        parameters = {@Parameter(name = "topic", example = "user1")}
     )
     @ApiResponse(responseCode = "200",
         content = @Content(examples = { @ExampleObject(value = sentResponse)}))
-
     public String sendMessage(@PathVariable String topic, @RequestBody String message) {
         producerService.sendMessage(topic, message);
         return sentResponse;
