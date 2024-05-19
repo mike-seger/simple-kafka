@@ -1,0 +1,6 @@
+Asciidoctor Demo
+================
+
+You can write text http://example.com[with inline links],
+optionally{sp}using an explicit link:http://example.com[link prefix].
+In either case, the link can have a http://example.com?foo=bar&lang=en[query string].
