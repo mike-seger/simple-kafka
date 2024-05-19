@@ -21,7 +21,7 @@ public class ReadmeController {
     public String getReadmeAsHtml() throws IOException, URISyntaxException {
         if(indexPage != null) return indexPage;
         var asciidoc = ResourceUtil.loadResourceFromLocation("static/README.adoc");
-        asciidoc = asciidoc.replaceAll("([^ :])http://localhost:8080/([^ ]*)", "$1 link:$2");
+        asciidoc = asciidoc.replaceAll("http://localhost:8080/", "");
         var htmlContent = "";
         try (var asciidoctor = Asciidoctor.Factory.create()) {
             var options = Options.builder()
