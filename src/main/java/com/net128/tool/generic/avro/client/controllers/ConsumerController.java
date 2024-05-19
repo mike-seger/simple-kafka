@@ -4,6 +4,7 @@ import com.net128.tool.generic.avro.client.Listener;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,7 @@ import java.time.OffsetDateTime;
 @RequiredArgsConstructor
 @Slf4j
 @RequestMapping("consumer")
+@Tag(name="2 - Consumer", description = "Some convenience consumer related methods")
 @SuppressWarnings("unused")
 public class ConsumerController {
     private final Listener listener;
