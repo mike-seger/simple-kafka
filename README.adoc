@@ -31,12 +31,14 @@ link:http://localhost:8080/swagger-ui/index.html#/[Swagger-UI]
 
 ==== Controlling the listener
 
+link:file:///home/username[Your files]
+
 // [cols=",",options="header",]
 |===
 |Action |URL
-|Seek back 10 minutes |GET: link:http://localhost:8080/api/seek-back/PT10M
-|Seek back to the beginning |GET: link:http://localhost:8080/api/seek-to-beginning
-|Seek back to the end |GET: link:http://localhost:8080/api/seek-to-end
+|Seek back 10 minutes |GET: {http://localhost:8080/api/seek-back/PT10M}
+|Seek back to the beginning |GET: {http://localhost:8080/api/seek-to-beginning}
+|Seek back to the end |GET: {http://localhost:8080/api/seek-to-end}
 |===
 
 ==== Show a JSON message as an AVRO hexdump
