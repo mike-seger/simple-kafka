@@ -16,7 +16,7 @@ import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
-public class AvroUtils {
+public class AvroUtil {
     private final SchemaRegistryService schemaRegistryService;
 
     public static GenericRecord jsonToGenericRecord(Schema schema, String jsonData) throws IOException {

@@ -2,7 +2,7 @@ package com.net128.tool.generic.avro.client;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.net128.tool.generic.avro.client.util.AvroRandomDataGenerator;
-import com.net128.tool.generic.avro.client.util.AvroUtils;
+import com.net128.tool.generic.avro.client.util.AvroUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -18,13 +18,13 @@ import java.util.stream.IntStream;
 public class ProducerService {
 
     private final KafkaTemplate<String, byte[]> kafkaTemplate;
-    private final AvroUtils avroUtils;
+    private final AvroUtil avroUtil;
     private final SchemaRegistryService schemaRegistryService;
     private final AtomicInteger counter = new AtomicInteger();
 
     public void sendMessage(String topic, String message) {
         try {
-            var avroData = avroUtils.serializeToAvro(topic, message);
+            var avroData = avroUtil.serializeToAvro(topic, message);
             var future = kafkaTemplate.send(topic, avroData);
             try {
                 var count = counter.incrementAndGet();

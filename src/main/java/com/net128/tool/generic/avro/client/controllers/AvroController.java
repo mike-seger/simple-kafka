@@ -1,7 +1,7 @@
 package com.net128.tool.generic.avro.client.controllers;
 
 import com.net128.tool.generic.avro.client.SchemaRegistryService;
-import com.net128.tool.generic.avro.client.util.AvroUtils;
+import com.net128.tool.generic.avro.client.util.AvroUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -22,16 +22,29 @@ import java.util.List;
 @SuppressWarnings("unused")
 public class AvroController {
     private final SchemaRegistryService schemaRegistryService;
-    private final AvroUtils avroUtils;
+    private final AvroUtil avroUtil;
 
     @GetMapping("/schemas")
-    @Operation(summary = "List all AVRO schemas")
+    @Operation(summary = "Get all AVRO schema names")
     public List<String> getSchemaNames() {
         return schemaRegistryService.getSchemaNames();
     }
 
+    @GetMapping("/schema/{name}")
+    @Operation(summary = "Get a raw AVRO schema",
+        parameters = {@Parameter(name = "name", example = "user1")}
+    )
+    public String getSchemas( @PathVariable String name) {
+        return schemaRegistryService.getRawSchema(name);
+    }
+
     @PostMapping("/schema/{name}")
-    @Operation(summary = "Sets the AVRO schema")
+    @Operation(summary = "Sets an AVRO schema",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    content = @Content(schema = @Schema(implementation = Object.class),
+                            examples = { @ExampleObject(value = exampleAvroSchema) })),
+            parameters = {@Parameter(name = "name", description = "Name of the schema / topic",
+                    example = "user1", schema = @Schema(type = "string"))})
     public void setSchema(@RequestBody String schema, @PathVariable String name) {
         schemaRegistryService.addSchema(name, schema);
     }
@@ -44,7 +57,7 @@ public class AvroController {
         parameters = {@Parameter(name = "name", description = "Name of the schema / topic",
             example = "user1", schema = @Schema(type = "string"))})
     public byte [] toAvro(@RequestBody String json, @PathVariable String name) throws Exception {
-        return avroUtils.serializeToAvro(name, json);
+        return avroUtil.serializeToAvro(name, json);
     }
 
     @PostMapping(value = "/schema/{name}/hexdump", produces = MediaType.TEXT_PLAIN_VALUE)
@@ -56,7 +69,7 @@ public class AvroController {
             example = "user1", schema = @Schema(type = "string"))})
     @ApiResponse(responseCode = "200", content = @Content(examples = { @ExampleObject(value = hexDump)}))
     public String toAvroHexDump(@RequestBody String json, @PathVariable String name) throws Exception {
-        return avroUtils.jsonToAvroHexDump(name, json);
+        return avroUtil.jsonToAvroHexDump(name, json);
     }
 
     final static String exampleObject =
@@ -65,6 +78,19 @@ public class AvroController {
             "id": "dff964a6-7f97-49da-8eb5-108701e1e3b3",
             "name": "Maria do Carmo Mão de Ferro e Cunha de Almeida Santa Rita Santos Abreu",
             "age": 33
+        }
+        """;
+
+    final static String exampleAvroSchema = """
+        {
+          "type": "record",
+          "name": "User",
+          "namespace": "com.example.demo.avro",
+          "fields": [
+            {"name": "id", "type": { "type": "fixed", "name": "id", "size": 36 }},
+            {"name": "name", "type": "string"},
+            {"name": "age", "type": "int"}
+          ]
         }
         """;
 

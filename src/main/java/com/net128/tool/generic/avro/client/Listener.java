@@ -1,6 +1,6 @@
 package com.net128.tool.generic.avro.client;
 
-import com.net128.tool.generic.avro.client.util.AvroUtils;
+import com.net128.tool.generic.avro.client.util.AvroUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -15,7 +15,7 @@ import java.time.Instant;
 @RequiredArgsConstructor
 @Slf4j
 public class Listener extends AbstractConsumerSeekAware {
-    private final AvroUtils avroUtils;
+    private final AvroUtil avroUtil;
 
     @KafkaListener(topicPattern = ".*")
     public void listen(
@@ -24,7 +24,7 @@ public class Listener extends AbstractConsumerSeekAware {
             @Header(KafkaHeaders.OFFSET) Long offset,
             @Header(KafkaHeaders.RECEIVED_TIMESTAMP) Long timestamp
     ) throws Exception {
-        var message = avroUtils.deserializeAvro(topic, messageData);
+        var message = avroUtil.deserializeAvro(topic, messageData);
         log.info("Received message from topic {}, at offset {}, on {}:\n{}",
             topic, offset, Instant.ofEpochMilli(timestamp), message);
     }

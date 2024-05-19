@@ -17,6 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class SchemaRegistryService {
 
     private final ConcurrentHashMap<String, Schema> schemaMap = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, String> rawSchemaMap = new ConcurrentHashMap<>();
 
     public void addSchema(String name, String avroSchema) {
         if(avroSchema.startsWith("classpath:")) {
@@ -28,10 +29,15 @@ public class SchemaRegistryService {
         }
         var schema = new Schema.Parser().parse(avroSchema);
         schemaMap.put(name, schema);
+        rawSchemaMap.put(name, avroSchema);
     }
 
     public Schema getSchema(String name) {
         if (schemaMap.containsKey(name)) { return schemaMap.get(name); } else { throw new IllegalArgumentException("Schema not found for: " + name); }
+    }
+
+    public String getRawSchema(String name) {
+        if (rawSchemaMap.containsKey(name)) { return rawSchemaMap.get(name); } else { throw new IllegalArgumentException("Schema not found for: " + name); }
     }
 
     public List<String> getSchemaNames() {
