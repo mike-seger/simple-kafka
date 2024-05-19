@@ -1,6 +1,3 @@
-= Home Page
-:docrole: home
-
 = Simple Kafka
 :sectnums:
 
@@ -30,24 +27,32 @@ broker, but connect to the existing one.
 === springdoc-ui
 
 In order to send messages the REST API can be used via UI here:
-link:http://localhost:8080/swagger-ui/index.html#/[Swagger-UI]
+link:http://localhost:8080/swagger-ui/index.html#/[role=resource,window=_blank]
 
 === Controlling the listener
 
 // [cols=",",options="header",]
 |===
-| HTTP Method | URL
-|GET | link:http://localhost:8080/api/seek-back/PT10M[Seek back 10 minutes]
-|GET | link:http://localhost:8080/api/seek-to-beginning[Seek back to the beginning]
-|GET | link:http://localhost:8080/api/seek-to-end[Seek back to the end]
+|Action | HTTP Method | URL
+|Seek back 10 minutes|GET | link:http://localhost:8080/api/seek-back/PT10M[role=resource,window=_blank]
+|Seek back to the beginning|GET | link:http://localhost:8080/api/seek-to-beginning[role=resource,window=_blank]
+|Seek back to the end|GET | link:http://localhost:8080/api/seek-to-end[role=resource,window=_blank]
 |===
 
 === Show a JSON message as an AVRO hexdump
 
-Using: https://httpie.io/
+Using: link:https://httpie.io/[httpie,role=resource,window=_blank]
 
 ....
-http --json POST http://localhost:8080/api/schema/user1/to-avro-hex/ name=Joe2 age:=8000
+http --json POST http://localhost:8080/api/schema/user1/to-avro-hex/ \
+    name="Maria do Carmo Mão de Ferro e Cunha de Almeida Santa Rita Santos Abreu" age:=33
+....
+
+Using curl:
+....
+curl -X 'POST' 'http://localhost:8080/avro/schema/user1/hexdump/' \
+  -H 'Content-Type: application/json' \
+  -d '{"name":"Maria do Carmo Mão de Ferro e Cunha de Almeida Santa Rita Santos Abreu","age":33}'
 ....
 
 == Running a Kafka cluster, Kafdrop and CMAK (Cluster Manager for Apache Kafka)
@@ -61,11 +66,11 @@ docker compose up -d
 
 === Access Kafdrop
 
-Open http://localhost:9006/
+Open: link:http://localhost:9006/[role=resource,window=_blank]
 
 === Access CMAK
 
-. Open http://localhost:9000/
+. Open: link:http://localhost:9000/[role=resource,window=_blank]
 . Only the first time, Cluster/"Add Cluster":
 * Cluster Name: Cluster1
 * Cluster Zookeeper Hosts: localhost:2181

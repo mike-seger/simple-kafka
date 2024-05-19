@@ -1,7 +1,6 @@
 package com.net128.tool.generic.avro.client.util;
 
 import com.net128.tool.generic.avro.client.SchemaRegistryService;
-import com.net128.tool.generic.avro.client.util.ResourceUtil;
 import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

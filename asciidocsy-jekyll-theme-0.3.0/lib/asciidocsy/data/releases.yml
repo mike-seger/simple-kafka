@@ -1,0 +1,245 @@
+# SUPPORTED product revisions for ASCIIDOCSY
+# LATEST TO OLDEST
+revisions:
+
+  - code: 0.3.0
+    date: 2021-09-21
+    hash: 050b33f239a0756db37de2dcb7e4219684dc7a44
+    memo: |
+      The third minor release of AsciiDocsy refactors the entire theme as a proper Ruby gem!
+      Now you can modify and extend AsciiDocsy while staying in-sync with the upstream releases.
+      There is some disruption involved -- see <</docs/theme/setup/upgrade-0-3-0,Upgrading to 0.3.0>> for full details.
+    work:
+      -
+        tick: 31
+        hash: 70d37a30881a70e5afdfcce6406c85b23bafe8cf
+        type: improvement
+        part: backend
+        summ: Repackaged theme as Ruby gem
+        tags: [breaking]
+        note: |
+          AsciiDocsy can now be installed as a gem.
+          Add it to your Gemfile under `:jekyll_plugins` and indicate the theme in the `site.theme` parameter.
+          See the docs for details.
+        docs:
+          - xref: /docs/theme/setup/upgrade-0-3-0
+            text: Upgrading to AsciiDocsy 0.3.0
+      -
+        tick: 24
+        hash: 1c655634165ac34a2ce4f6fd5af653da2f4673b3
+        type: improvement
+        part: backend
+        summ: Converted styles to Sass
+        tags: [breaking]
+        note: |
+          All Bootstrap and AsciiDocsy CSS is now sourced as Sass under the `_sass/` path.
+        docs:
+          - xref: /docs/theme/extend
+            text: Extending the Theme
+      -
+        tick: 65
+        type: improvement
+        part: docs
+        summ: Moved docs-site definitions to separate repo
+        note: |
+          While the source of AsciiDocsy technical documentation remains in the AsciiDocsy theme repo under `_docs/`, and the attributes-data source has moved to `lib/asciidocsy/data/`, the files that configure the AsciiDocsy documentation deployment have moved to a distinct repo.
+
+          This move was mainly to model a proper docs-as-code deployment chain for the AsciiDocsy docs themselves.
+          The AsciiDocsy theme repository is treated as a Git submodule of that documentation repo, so the docs repo always has ready access to the documentation and data directories of the subject repo.
+
+          The new repo is at: {theme_docs_repo_www}
+        docs:
+          - xref: /docs/theme/setup/upgrade-0-3-0
+            text: Upgrading to AsciiDocsy 0.3.0
+
+
+  - code: 0.2.0
+    date: 2021-07-21
+    memo: |
+      This release introduces a <<#62bf5dd,suite of version-handling features>> as well as a new <<#cced5cd,theme configuration system>> and experimental <<#428a4eb,ReleaseHx>> templates.
+      Several bugfixes are also included.
+    hash: 4e39baa4 # Git hash for the release
+    down: false
+    work:
+      -
+        tick: 10
+        hash: 62bf5dd5ad400011b3239718ef9381b221d1b0c3
+        type: new-feature
+        part: content
+        summ: Added version-handling features and config system
+        tags: [breaking]
+        note: |
+          A full suite of versioning options now enables amending the DOM, swapping tokens, toggling classes, and tabbing panes.
+          Also resolves link:{theme_docs_repo_www}/issues/9[Issue #9].
+        docs:
+          - xref: /docs/theme/config/versioning
+            text: configuration reference
+      -
+        tick: 41 # ID for the issue ticket
+        hash: cced5cd9f995daf4f0013121f689872c35e5bef9 # Commit hash (7+ chars)
+        type: improvement
+        part: backend
+        summ: Refactored the theme config system, moving from `site` scope to `site.data` scope
+        tags: [breaking]
+        note: |
+          A full suite of versioning options now enables amending the DOM, swapping tokens, toggling classes, and tabbing panes.
+        docs:
+          - xref: /docs/theme/config/
+            text: configuration overview
+          - xref: /docs/theme/config/api-reference
+            text: config API reference
+      -
+        hash: 428a4ebff412d7a988830105eee6a99487b869e7
+        type: new-feature
+        part: content
+        summ: Added ReleaseHx "`release history`" templates
+        note: |
+          AsciiDocsy provides a templates and a YAML format for generating release notes and/or a changelog.
+          If you are reading this as HTML or PDF, you are most likely looking at one such generated release history, for AsciiDocsy itself.
+          Documentation is forthcoming; this feature may change without notice prior to 1.0.
+        tags: [experimental]
+      -
+        hash: 8d7ab51c636e2c7bede590be173ec7c96c45b22d
+        type: new-feature
+        part: docs
+        summ: Started reporting Release History for AsciiDocsy
+        note: |
+          The flagship implementation of the ReleaseHx minimum-viable product is the AsciiDocsy Release Notes and Changelog itself.
+        docs:
+          - text: Release History
+            xref: /docs/theme/history#
+
+      -
+        tick: 4 # ID for the issue ticket
+        hash: a65cfee896b66067fc4dd92ba178167085d55674
+        type: bugfix
+        part: frontend
+        summ: Fixed "`peel`" ("`print-friendly`") function/page-link
+      -
+        tick: 2 # ID for the issue ticket
+        hash: e45db56e8a203ae215ee28152a3c60ea688003c0
+        type: bugfix
+        part: frontend
+        summ: Widened footer, removed unwanted margins
+      -
+        tick: 58 # ID for the issue ticket
+        hash: 9337ab4c1a7a02154ce57d4a720627900e1e3141
+        type: bugfix
+        part: backend
+        summ: Started tracking `Gemfile.lock` in Git (removed from `.gitignore`)
+      -
+        hash: 5a21cd5d3152d2862a8299c0a6a1279096f25e39
+        type: bugfix
+        part: frontend
+        summ: Fix handling of `site.base_url` in head hrefs
+    patches:
+      - code: 0.2.1
+        date: 2021-08-22
+        hash: nohashyetgetahash
+        memo: |
+          Front-end cleanup and dropping the `.html`.
+        work:
+          -
+            hash: e841ea3e561905f9baddffe1d429a78009d6498b
+            tick: 64
+            type: improvement
+            part: backend
+            summ: Stopped Asciidoctor from appending `.html` to xrefs
+          -
+            hash: ff96b2f065070f401b367e180f4eecc3d4a842d6
+            tick: 62
+            type: bugfix
+            part: frontend
+            summ: Added the obligitory Algolia logo to search forms
+          -
+            hash: 750d7875650229e96646532fc922a1a3a28e7269
+            tick: 15
+            type: bugfix
+            part: frontend
+            summ: Stopped the top navbar from scrolling at mobile widths
+          -
+            hash: 3b7510c0f896259f2e3f316d2ed589094a6fb31f
+            tick: 13
+            type: bugfix
+            tags: [deprecation]
+            part: frontend
+            summ: Removed Iconic from skins selection list
+            note: |
+              Because the Iconic skin imposed an ugly box under the page header that was not obviously fixable, Iconic will no longer be an option for users to select in the AsciiDocsy demo site skin changer.
+              The Iconic skin source itself may be removed as early as v0.3.0.
+              Mostly this note was just an excuse to use the `deprecation` tag, also added in this release.
+
+          -
+            hash: d7e9eddc3fee360489df40b70c10764fa5095487
+            tick: 14
+            type: bugfix
+            part: frontend
+            summ: Eliminated scrolling of right sidebar in shorter browsers
+          -
+            hash: 1e3886d223849f6e7ecc978adda210498976fc18
+            tick: 50
+            type: bugfix
+            part: frontend
+            summ: Added optional labels, icons to button-based handlers
+          -
+            hash: a28686e
+            type: bugfix
+            part: frontend
+            summ: Fixed ticket-link template rendering in ReleaseHx
+          -
+            hash: f4346d5
+            type: bugfix
+            part: frontend
+            summ: Fixed Docs link feature in Changelog entries
+            note: |
+              Changelog entries with one and only one doc link will now hyperlink directly to that doc URL.
+              Those with 2 or more doc entries still link to the Release Note entry for the same change, but now all changes with 2+ doc entries will always appear under Release Notes, even if they have no `note` property, so their multiple docs links can appear.
+
+  - code: 0.1.0 # unique revision ID
+    date: 2021-05-19 # release date
+    memo: |
+      This first release of AsciiDocsy has a long way to go, but it is already more mature than many Jekyll docs themes.
+    hash: 884003cfc64754445c71dd5863bd64a54bbf2749
+    work: # NOT YET DELINEATED
+      -
+        hash: 884003cfc64754445c71dd5863bd64a54bbf2749 # Commit hash (7+ chars)
+        type: new-feature #
+        part: backend #
+        summ: Added initial back-end and front-end infrastructure.
+      -
+        hash: 64ad492730b1fcb7d6385bf84721c1ad22ff0d6b
+        type: new-feature
+        part: docs
+        summ: Added initial technical documentation.
+        note: |
+          Basic documentation site uses AsciiDocsy theme under _docs/ directory.
+          Also introduces rudimentary Config API reference platform/DSL.
+        docs:
+          - text: Live Website
+            href: "{{site.deploy_url}}/docs"
+          - text: Source
+            href: "{{site.source_www}}/tree/{{site.source_trunk_branch}}/_docs"
+    patches:
+      - code: 0.1.1
+        date: 2021-05-26
+        hash: 4986070b45d553d1b9c2a5f78df46afd01fb304c
+        memo: |
+          A few promised fixes, nothing backward incompatible.
+        work:
+          - hash: f0a3071bf7d3c9523f0b16a7ad444157d44b885c
+            summ: Split search into 2 indices as was already indicated in UI
+            part: backend
+            type: bugfix
+            note: Both searches were drawing off the same index, so we switched them up into *site search* and *subject search*.
+          - hash: 06b3b93b296b112306fcbcdc010558602617bf16
+            summ: Fixed Navgoco (subject) menu highlights
+            part: frontend
+            type: bugfix
+          - hash: ec35702c953efc0c9d12c2fede52d17905f65207
+            summ: Fixed semantic term icon spin feature
+            part: frontend
+            type: bugfix
+          - hash: a1a61769086268bd38dd8a377b1a6b999e401b2b
+            summ: Improved the install instructions with basic Netlify deployment option
+            part: docs
+            type: improvement

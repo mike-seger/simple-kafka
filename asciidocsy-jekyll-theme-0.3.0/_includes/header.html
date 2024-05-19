@@ -1,0 +1,22 @@
+<header><!-- DOCSITE REF/NAV -->
+  <nav id="nav-site" class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar td-navbar-{{ site.data.theme.styles.nav-site.position | default: 'fixed' }}">
+    <a class="navbar-brand" href="/{{ site.baseurl }}">
+      <span class="navbar-logo"></span>
+      <img src="{{ site.data.theme.blocks.header.show.logo.source }}" class="logo" width="{{ site.data.theme.blocks.header.show.logo.width | default: '50px' }}">
+       <span class="site-title">{{ site.name }}</span>
+	  </a>
+  	<div class="td-navbar-nav-scroll ml-md-auto align-content-end" id="navbarNavDropdown">
+      {% include nav-site.html %}
+  	</div>
+    {% if site.data.theme.search.site.show.spot == "#nav-site" %}
+      {% include search-form.html search="site" %}
+    {% endif %}
+    {% if site.source_www %}
+  	<div class="navbar-nav d-none d-lg-block">
+      <a class="nav-link" href="{{ site.source_www }}" target="_blank">
+        <i class="icon fab {{ site.source_icon | default: 'fa-code-fork' }} fa-2x"></i>
+      </a>
+    </div>
+    {% endif %}
+  </nav>
+</header>

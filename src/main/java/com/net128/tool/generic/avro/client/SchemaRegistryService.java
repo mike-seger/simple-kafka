@@ -31,11 +31,7 @@ public class SchemaRegistryService {
     }
 
     public Schema getSchema(String name) {
-        if (schemaMap.containsKey(name)) {
-            return schemaMap.get(name);
-        } else {
-            throw new IllegalArgumentException("Schema not found for: " + name);
-        }
+        if (schemaMap.containsKey(name)) { return schemaMap.get(name); } else { throw new IllegalArgumentException("Schema not found for: " + name); }
     }
 
     public List<String> getSchemaNames() {
