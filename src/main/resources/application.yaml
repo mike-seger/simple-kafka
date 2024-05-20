@@ -1,5 +1,6 @@
 
 spring:
+  application.name: simple-kafka
   kafka:
     bootstrap-servers: localhost:9092
     group-id: group1
@@ -16,6 +17,9 @@ management.endpoints.web.exposure.include: '*'
 
 springdoc.swagger-ui.tagsSorter: alpha
 
+logroot: /tmp/
+#logroot: ${java.io.tmpdir}
+
 logging:
   pattern:
     console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
@@ -30,3 +34,9 @@ logging:
     org.springframework.kafka.listener: warn
     org.springframework.kafka.core: warn
     kafka.controller: warn
+  file.name: ${logroot}/${spring.application.name}.log
+  logback.rollingpolicy:
+    file-name-pattern: ${logroot}/${spring.application.name}.%d{yyyy-MM-dd}.%i.log
+    max-file-size: 100MB
+    total-size-cap: 5GB
+    max-history: 10

@@ -42,11 +42,11 @@ public class AvroController {
 
     @PostMapping("/schema/{name}")
     @Operation(summary = "Sets an AVRO schema",
-            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-                    content = @Content(schema = @Schema(implementation = Object.class),
-                            examples = { @ExampleObject(value = exampleAvroSchema) })),
-            parameters = {@Parameter(name = "name", description = "Name of the schema / topic",
-                    example = "user1", schema = @Schema(type = "string"))})
+        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            content = @Content(schema = @Schema(implementation = Object.class),
+                examples = { @ExampleObject(value = exampleAvroSchema) })),
+        parameters = {@Parameter(name = "name", description = "Name of the schema / topic",
+            example = "user1", schema = @Schema(type = "string"))})
     public void setSchema(@RequestBody String schema, @PathVariable String name) {
         schemaRegistryService.addSchema(name, schema);
     }

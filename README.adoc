@@ -27,6 +27,7 @@ broker, but connect to the existing one.
 === springdoc-ui
 
 In order to send messages the REST API can be used via UI here:
+
 link:http://localhost:8080/swagger-ui/index.html#/[role=resource,window=_blank]
 
 === Controlling the listener

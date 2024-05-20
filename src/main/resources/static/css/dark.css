@@ -101,7 +101,7 @@ a:hover {
   background: var(--sidebarbackground);
 }
 .literalblock pre, .listingblock pre:not(.highlight), .listingblock pre[class="highlight"], .listingblock pre[class^="highlight "], .listingblock pre.CodeRay, .listingblock pre.prettyprint {
-  background: var(--sidebarbackground);
+  background: var(--sidebarbackground) !important;
   color: var(--white);
 }
 
